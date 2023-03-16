@@ -1,37 +1,44 @@
-# HOMMING PROGRAMMING PROFICIENCY TEST (HPPT)
+# HOMMING REACT NATIVE PROFICIENCY TEST
 
-**WELCOME CHALLENGER** to the ~~HTTP~~ HPPT, we are going to test your proficiency as a programmer! ʕ ᓀ ᴥ ᓂ ʔ
+**WELCOME CHALLENGER**, we are going to test your proficiency as a programmer! ʕ ᓀ ᴥ ᓂ ʔ
 
 > **DISCLAIMER:** Make the code to do what you want is only the first step, we expect elegant and optimal solutions since the problems are not challenging!
 
-## SETUP
+## CHALLENGE
 
-You will find a dockerfile and a docker-compose.yml in your project root, that can only mean one thing... a dockerized project! So you may have guess the first step of this test already. Set it up and running!
+Urgent! Suddenly we are asked to make a minified Homming app with access to the client's property list.
 
-> ⚠️ **WARNING** ⚠️ Remember your dependencies, don't expect your project to run without you libraries installed in the container, they wouldn't do the same to you.
+For this we need two screens (already created):
 
-## PHP
+1. **Login screen**: This screen will be a simple form asking for email and password, this information has to be sent to the URL provided in ```/utils/endpoints.ts``` which will return a bearer token needed for the next request.
 
-The backend part is more logic oriented, nothing pragmatic, unless you really like roman numbers for some reason...
+2. **Properties screen**: Once logged in, we have to retrieve the properties endpoint payload and list them **SECTIONED** following these requirements:
 
-You have a `src` folder with multiple files, each of them contains a function. You need to complete that function with the logic necessary to pass the tests. **You have complete control over the content of each function but not the parameters**. Take into consideration the optimization and DX of these exercises, imagine you have 1 million recipes, or that you have to parse an absurd amount of numbers and you will need to mantain that code often.
+         - Each section title has to have the initial letter of the property name (we don't need sections with letters if they don't contain properties) and they must be sorted alphabetically.
 
-You can check your logic running `docker compose exec app php vendor/bin/phpunit`.
+         - We don't want to show properties with missing information, so we will omit properties without the "contructed_area" property.
 
-## JAVASCRIPT
+         - If the name of a property is pressed (click) it should disappear
+         
+         Sample:
 
-This is a more pragmatic approach, this consists on a basic table CRUD, filtering and testing.
+           * A
+             - Avenida Roma, 4
+             - Area 51
+           * E
+             - Edificio Walmart, 12
+           ... 
 
-Your workspace is `resources` and your tests live in `tests/js`, appart from that you can organize your files as you wish. You will start with an stub containing data and your objetive is:
+**Credentials**:
 
- - Create a table which list the properties
- - Add extra columns to the properties table including months the property has been rented for and a boolean expresing if the property is currently being rented out
- - Be able to filter by property types, user and dates
- - (Optional) Listen to URL parameters to filter on page load. e.g. `?user=1`
- - (Optional) Install and use TailwindCSS to style your stuff properly.
-
-You can check your work running `docker compose exec app npm run serve` and accessing your `localhost:8080`.
-
+  email: reactnative@test.com
+  
+  password: password                 
+  
+**Notes**:
+  
+  To know what to send in every request you already have the interfaces in ```/utils/interfaces.ts```
+  
 ## HOW TO HAND IN YOUR WORK
 
 Please, fork this repository and submit a Pull Request with your solutions so we can check it out.
