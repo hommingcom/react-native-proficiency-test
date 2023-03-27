@@ -1,31 +1,29 @@
-import React, { useState } from 'react';
-import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import LoginScreen from "./screens/LoginScreen";
-import HomeScreen from "./screens/HomeScreen";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
+import { AuthProvider } from './hooks/useAuth';
 
 type RootStackParamList = {
   Login: undefined;
-  Home: undefined
+  Home: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-export const AuthContext = React.createContext<{token: string | null, setToken: React.Dispatch<React.SetStateAction<string | null>>}>({token: null, setToken: () => {}})
 
-const App = (): JSX.Element  => {
-  const [token, setToken] = useState<string | null>(null)
-
+const App = (): JSX.Element => {
   return (
-<AuthContext.Provider value={{token, setToken }}>
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name={'Login'} component={LoginScreen} />
-      <Stack.Screen name={'Home'} component={HomeScreen} />
-    </Stack.Navigator>
-  </NavigationContainer>
-</AuthContext.Provider>
-)
-}
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name={'Login'} component={LoginScreen} />
+          <Stack.Screen name={'Home'} component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
+  );
+};
 
 export default App;
 

@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthContext } from '../App';
 import { login } from '../utils/services';
+import { useAuth } from '../hooks/useAuth';
 
 type RootStackParamList = {
   Home: undefined;
@@ -20,7 +20,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //We omit the first argument since we won't be needing it (token)
-  const {setToken} = useContext(AuthContext);
+  const {setToken} = useAuth();
   const deviceName = "homming";
 
   const onSubmit = async () => {

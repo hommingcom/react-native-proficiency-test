@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { AuthContext } from '../App';
 import useState from 'react';
+import { useAuth } from '../hooks/useAuth';
 
 const HomeScreen: React.FC = () => {
  
-  const {token} = useContext(AuthContext)
+  const {token} = useAuth();
 
 useEffect(() => {
   
