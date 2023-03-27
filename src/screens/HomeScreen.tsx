@@ -4,8 +4,7 @@ import { AuthContext } from '../App';
 import useState from 'react';
 
 const HomeScreen: React.FC = () => {
-  //Interface | null in the <>
-  /* const [properties, setProperties] = useState<[] | null>(null) */
+ 
   const {token} = useContext(AuthContext)
 
 useEffect(() => {
