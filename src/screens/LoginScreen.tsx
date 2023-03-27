@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { Input, Button } from 'react-native-elements';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthContext } from '../App';
+import { login } from '../utils/services';
 
-const LoginScreen = () => {
+type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+};
+
+type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+
+type LoginScreenProps = {
+  navigation: LoginScreenNavigationProp;
+};
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  //We omit the first argument since we won't be needing it (token)
+  const {setToken} = useContext(AuthContext);
+  const deviceName = "homming";
 
   const onSubmit = async () => {
     // Perform the login request and store the bearer token
-
-    try {
-        const response = await fetch('https://dev.homming.com/api/auth/token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
-        });
-  
-        if (response.ok) {
-          const data = await response.json();
-          return data
-          
-        } else {
-            //Maybe in a more complex example I would return an error instead an alert to separate UI layer and server layer
-          Alert.alert('Error', 'Login failed. Please check your credentials.');
-          return null
-        }
-      } catch (error) {
-        Alert.alert('Error', 'An error occurred while logging in.')
-        return null
-      }
+    const data = await login(deviceName, email, password);
+    if( data) {
+    setToken(data.data.plainTextToken)
+    // Save the token securely
+    // Navigate to the Properties screen (Home)
+    navigation.navigate('Home');
+  }
+   
+  };
 
   return (
     <View style={styles.container}>
@@ -68,6 +71,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-}
 
 export default LoginScreen;
