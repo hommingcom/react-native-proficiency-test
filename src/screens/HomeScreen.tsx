@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 import { getProperties } from '../utils/services';
 import { Property } from '../utils/interfaces';
+import { removeAccent } from '../utils/helpers';
 
 
 const HomeScreen: React.FC = () => {
@@ -50,12 +51,6 @@ const HomeScreen: React.FC = () => {
     return processedData;
   };
 
-  function removeAccent(character: string): string {
-    const accentMap: Record<string, string> = {
-      Á: 'A',
-    };
-    return accentMap[character] || character;
-  }
 
   const handlePress = (index: number) => {
     setProperties((prevProperties) => {
