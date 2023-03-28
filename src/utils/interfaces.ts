@@ -71,8 +71,8 @@ export interface Property {
   active_contract_tenants_count: number;
   occupied_rooms_count: number;
   collections: string[];
-  media: any[]; // You can replace `any` with the appropriate type if you have more information about the media structure
-  tags: any[]; // You can replace `any` with the appropriate type if you have more information about the tags structure
+  media: any[];
+  tags: any[];
 }
 
 export interface PaginationLink {

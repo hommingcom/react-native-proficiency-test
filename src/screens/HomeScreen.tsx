@@ -9,7 +9,9 @@ const HomeScreen: React.FC = () => {
   const [properties, setProperties] = useState<(string | Property)[]>([]);
   const { token } = useAuth();
 
+  //I use the useEffect to fetch properties allways when the token change, which will be when an user logs in the app
   useEffect(() => {
+    //And I need first to check if there is a token at all, if it pass, it fetches the data with getProperties service
     if (token) {
       getProperties(token).then((data) => {
         if (data) {
@@ -20,7 +22,10 @@ const HomeScreen: React.FC = () => {
     }
   }, [token]);
 
+  //Now I need to process the properties to group them by the initial letter
   const processProperties = (properties: Property[]): (string | Property)[] => {
+
+    //And first I create a groupedProperties to group by initial letter; the type is 
     const groupedProperties: Record<string, Property[]> = {};
   
     properties
