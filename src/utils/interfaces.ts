@@ -7,5 +7,4 @@ export interface LoginReq {
 export interface PropertiesReq {
   page: 1
   per_page: number
-
 }
