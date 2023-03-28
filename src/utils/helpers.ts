@@ -1,5 +1,6 @@
+import { Property } from "./interfaces";
 
-export function removeAccent(character: string): string {
+function removeAccent(character: string): string {
     const accentMap: Record<string, string> = {
       Á: 'A',
       É: 'E',
@@ -9,3 +10,31 @@ export function removeAccent(character: string): string {
     };
     return accentMap[character] || character;
   }
+
+  //Now I need to process the properties to group them by the initial letter
+  export const processProperties = (properties: Property[]): (string | Property)[] => {
+
+    //And first I create a groupedProperties to group by initial letter; the type is 
+    const groupedProperties: Record<string, Property[]> = {};
+  
+    properties
+      .filter((property) => property.constructed_area !== undefined)
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .forEach((property) => {
+        const initialLetter = removeAccent(property.name[0].toUpperCase());
+  
+        if (!groupedProperties[initialLetter]) {
+          groupedProperties[initialLetter] = [];
+        }
+        groupedProperties[initialLetter].push(property);
+      });
+  
+    const processedData: (string | Property)[] = [];
+  
+    Object.keys(groupedProperties).forEach((initialLetter) => {
+      processedData.push(initialLetter);
+      processedData.push(...groupedProperties[initialLetter]);
+    });
+  
+    return processedData;
+  };

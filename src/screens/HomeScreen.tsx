@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 import { getProperties } from '../utils/services';
 import { Property } from '../utils/interfaces';
-import { removeAccent } from '../utils/helpers';
+import { processProperties} from '../utils/helpers';
 
 
 const HomeScreen: React.FC = () => {
@@ -16,41 +16,14 @@ const HomeScreen: React.FC = () => {
     if (token) {
       getProperties(token).then((data) => {
         if (data) {
+          // I process the fetched data to group it by the initial letter and group them under this initial letter without accent
           const processedData = processProperties(data.data);
+          // Update to the properties with this processedData
           setProperties(processedData);
         }
       });
     }
   }, [token]);
-
-  //Now I need to process the properties to group them by the initial letter
-  const processProperties = (properties: Property[]): (string | Property)[] => {
-
-    //And first I create a groupedProperties to group by initial letter; the type is 
-    const groupedProperties: Record<string, Property[]> = {};
-  
-    properties
-      .filter((property) => property.constructed_area !== undefined)
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .forEach((property) => {
-        const initialLetter = removeAccent(property.name[0].toUpperCase());
-  
-        if (!groupedProperties[initialLetter]) {
-          groupedProperties[initialLetter] = [];
-        }
-        groupedProperties[initialLetter].push(property);
-      });
-  
-    const processedData: (string | Property)[] = [];
-  
-    Object.keys(groupedProperties).forEach((initialLetter) => {
-      processedData.push(initialLetter);
-      processedData.push(...groupedProperties[initialLetter]);
-    });
-  
-    return processedData;
-  };
-
 
   const handlePress = (index: number) => {
     setProperties((prevProperties) => {
