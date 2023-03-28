@@ -31,7 +31,7 @@ For this we need two screens (already created):
 
 **Credentials**:
 
-  email: reactnative@test.com
+  email: react.native@test.com
   
   password: password                 
   
