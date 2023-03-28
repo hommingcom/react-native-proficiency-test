@@ -32,7 +32,7 @@ const HomeScreen: React.FC = () => {
       .filter((property) => property.constructed_area !== undefined)
       .sort((a, b) => a.name.localeCompare(b.name))
       .forEach((property) => {
-        const initialLetter = property.name[0].toUpperCase();
+        const initialLetter = removeAccent(property.name[0].toUpperCase());
   
         if (!groupedProperties[initialLetter]) {
           groupedProperties[initialLetter] = [];
@@ -49,6 +49,13 @@ const HomeScreen: React.FC = () => {
   
     return processedData;
   };
+
+  function removeAccent(character: string): string {
+    const accentMap: Record<string, string> = {
+      Á: 'A',
+    };
+    return accentMap[character] || character;
+  }
 
   const handlePress = (index: number) => {
     setProperties((prevProperties) => {
