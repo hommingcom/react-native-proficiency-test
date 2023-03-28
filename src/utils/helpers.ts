@@ -18,7 +18,7 @@ function removeAccent(character: string): string {
     const groupedProperties: Record<string, Property[]> = {};
   
     properties
-      .filter((property) => property.constructed_area !== undefined)
+      .filter((property) => property.constructed_area !== undefined && property.constructed_area !== null)
       .sort((a, b) => a.name.localeCompare(b.name))
       .forEach((property) => {
         const initialLetter = removeAccent(property.name[0].toUpperCase());
