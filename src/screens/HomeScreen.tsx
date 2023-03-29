@@ -39,15 +39,16 @@ const HomeScreen: React.FC = () => {
           newProperties.splice(index - 1, 1);
         }
       }
-
       return newProperties;
     });
   };
 
   const renderItem: ListRenderItem<string | Property> = ({item, index}) => {
+    // If the current item is a string, it's an initial letter, so render it as a header
     if (typeof item === 'string') {
       return <Text style={styles.header}>{item}</Text>;
     } else {
+      // Otherwise, the item is a Property object, so render it as a property name with the onPress event that is required
       return (
         <Text onPress={() => handlePress(index)} style={styles.propertyName}>
           {item.name}

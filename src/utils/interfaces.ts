@@ -26,6 +26,7 @@ export interface LoginResponse {
   message: string;
 }
 
+//I do the same with the properties response
 export interface Property {
   id: number;
   owner_id: number;
