@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
-import { AuthProvider } from './hooks/useAuth';
+import {AuthProvider} from './hooks/useAuth';
 
 type RootStackParamList = {
   Login: undefined;
@@ -26,4 +26,3 @@ const App = (): JSX.Element => {
 };
 
 export default App;
-
